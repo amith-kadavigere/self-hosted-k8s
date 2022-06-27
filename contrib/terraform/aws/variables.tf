@@ -1,10 +1,10 @@
-variable "AWS_ACCESS_KEY_ID" {
-  description = "AWS Access Key"
-}
+# variable "AWS_ACCESS_KEY_ID" {
+#   description = "AWS Access Key"
+# }
 
-variable "AWS_SECRET_ACCESS_KEY" {
-  description = "AWS Secret Key"
-}
+# variable "AWS_SECRET_ACCESS_KEY" {
+#   description = "AWS Secret Key"
+# }
 
 variable "AWS_SSH_KEY_NAME" {
   description = "Name of the SSH keypair to use in AWS."
@@ -20,21 +20,43 @@ variable "aws_cluster_name" {
   description = "Name of AWS Cluster"
 }
 
-data "aws_ami" "distro" {
-  most_recent = true
+# Currently using Amazon Linux 2 image
 
-  filter {
-    name   = "name"
-    values = ["debian-10-amd64-*"]
-  }
+data "aws_ami" "distro" {
+ most_recent = true
+
+
+ filter {
+   name   = "name"
+   values = ["amzn2-ami-hvm*"]
+ }
 
   filter {
     name   = "virtualization-type"
     values = ["hvm"]
   }
 
-  owners = ["136693071363"] # Debian-10
+
+  owners = ["137112412989"] # Amazon Linux 2
 }
+
+# Comment above Data block and uncomment below if you wish to use Debian image instead of Amazon Linux
+
+# data "aws_ami" "distro" {
+#   most_recent = true
+
+#   filter {
+#     name   = "name"
+#     values = ["debian-10-amd64-*"]
+#   }
+
+#   filter {
+#     name   = "virtualization-type"
+#     values = ["hvm"]
+#   }
+
+#   owners = ["136693071363"] # Debian-10
+# }
 
 //AWS VPC Variables
 
@@ -49,6 +71,11 @@ variable "aws_cidr_subnets_private" {
 
 variable "aws_cidr_subnets_public" {
   description = "CIDR Blocks for public subnets in Availability Zones"
+  type        = list(string)
+}
+
+variable "aws_avail_zones" {
+  description = "Specify the Availability zones to distribute instances uniformally for high availability"
   type        = list(string)
 }
 

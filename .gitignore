@@ -1,3 +1,19 @@
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix
+
+./*.tfstate
+.terraform
+
 .vagrant
 *.retry
 **/vagrant_ansible_inventory
@@ -5,7 +21,6 @@
 temp
 offline-files
 .idea
-.vscode
 .tox
 .cache
 *.bak
@@ -110,3 +125,8 @@ roles/**/molecule/**/__pycache__/
 
 # Temp location used by our scripts
 scripts/tmp/
+
+# Exclude Terraform backend and plan. backend.tf & credentials should not be exposed. Uncomment for best practice.
+# *backend*
+ *kube-plan*
+# *credentials*
